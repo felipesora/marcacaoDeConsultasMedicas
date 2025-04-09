@@ -123,9 +123,15 @@ const DoctorDashboardScreen: React.FC = () => {
           appointments.map((appointment) => (
             <AppointmentCard key={appointment.id}>
               <ListItem.Content>
-                <ListItem.Title style={styles.dateTime as TextStyle}>
-                  {appointment.date} às {appointment.time}
-                </ListItem.Title>
+              <ListItem.Title style={styles.patientName as TextStyle}>
+                Paciente: {appointment.patientName || 'Nome não disponível'}
+              </ListItem.Title>
+              <ListItem.Subtitle style={styles.dateTime as TextStyle}>
+                {appointment.date} às {appointment.time}
+              </ListItem.Subtitle>
+              <Text style={styles.specialty as TextStyle}>
+                {appointment.specialty}
+              </Text>
                 <StatusBadge status={appointment.status}>
                   <StatusText status={appointment.status}>
                     {getStatusText(appointment.status)}
