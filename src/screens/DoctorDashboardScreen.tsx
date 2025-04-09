@@ -18,6 +18,7 @@ type DoctorDashboardScreenProps = {
 interface Appointment {
   id: string;
   patientId: string;
+  patientName: string;
   doctorId: string;
   doctorName: string;
   date: string;
