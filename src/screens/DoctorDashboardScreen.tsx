@@ -202,6 +202,16 @@ const styles = {
     fontWeight: '700',
     color: theme.colors.text,
   },
+  patientName: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: theme.colors.text,
+  },
+  specialty: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: theme.colors.text,
+  },
 };
 
 const Container = styled.View`
