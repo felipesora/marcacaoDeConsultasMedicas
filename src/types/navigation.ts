@@ -27,4 +27,5 @@ export type RootStackParamList = {
   UserManagement: undefined;
   EditProfile: undefined;
   Notifications: undefined;
+  Settings: undefined;
 }; 
