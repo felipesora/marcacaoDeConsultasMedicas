@@ -10,6 +10,8 @@ import { RootStackParamList } from '../types/navigation';
 import theme from '../styles/theme';
 import Header from '../components/Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import StatisticsCard from '../components/StatisticsCard';
+import { statisticsService, Statistics } from '../services/statistics';
 
 type DoctorDashboardScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'DoctorDashboard'>;
@@ -58,6 +60,7 @@ const DoctorDashboardScreen: React.FC = () => {
   const navigation = useNavigation<DoctorDashboardScreenProps['navigation']>();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [statistics, setStatistics] = useState<Statistics | null>(null);
 
   const loadAppointments = async () => {
     try {
@@ -73,6 +76,17 @@ const DoctorDashboardScreen: React.FC = () => {
       console.error('Erro ao carregar consultas:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadStatistics = async () => {
+    try {
+      if (user?.id) {
+        const stats = await statisticsService.getDoctorStatistics(user.id);
+        setStatistics(stats);
+      }
+    } catch (error) {
+      console.error('Erro ao carregar estatísticas do médico:', error);
     }
   };
 
@@ -99,6 +113,7 @@ const DoctorDashboardScreen: React.FC = () => {
   useFocusEffect(
     React.useCallback(() => {
       loadAppointments();
+      loadStatistics();
     }, [])
   );
 
@@ -114,6 +129,30 @@ const DoctorDashboardScreen: React.FC = () => {
           containerStyle={styles.button as ViewStyle}
           buttonStyle={styles.buttonStyle}
         />
+
+        <SectionTitle>Minhas Estatísticas</SectionTitle>
+        {statistics && (
+          <StatisticsGrid>
+            <StatisticsCard
+              title="Consultas Totais"
+              value={statistics.totalAppointments}
+              color={theme.colors.primary}
+              subtitle="Minhas consultas"
+            />
+            <StatisticsCard
+              title="Consultas Confirmadas"
+              value={statistics.confirmedAppointments}
+              color={theme.colors.success}
+              subtitle={`${statistics.statusPercentages.confirmed.toFixed(1)}% do total`}
+            />
+            <StatisticsCard
+              title="Pacientes Atendidos"
+              value={statistics.totalPatients}
+              color={theme.colors.secondary}
+              subtitle="Pacientes únicos"
+            />
+          </StatisticsGrid>
+        )}
 
         {loading ? (
           <LoadingText>Carregando consultas...</LoadingText>
@@ -268,6 +307,21 @@ const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 8px;
+`;
+
+const SectionTitle = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: ${theme.colors.text};
+  margin-top: 20px;
+  margin-bottom: 10px;
+`;
+
+const StatisticsGrid = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 export default DoctorDashboardScreen;
