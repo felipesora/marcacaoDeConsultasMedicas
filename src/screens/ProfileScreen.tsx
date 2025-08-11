@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import { useAuth } from '../contexts/AuthContext';
 import theme from '../styles/theme';
 import { RootStackParamList } from '../types/navigation';
+import { ViewStyle } from 'react-native';
 
 type ProfileScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Profile'>;
@@ -49,6 +50,13 @@ const ProfileScreen: React.FC = () => {
         </ProfileCard>
 
         <Button
+          title="Editar Perfil"
+          onPress={() => navigation.navigate('EditProfile' as any)}
+          containerStyle={styles.button as ViewStyle}
+          buttonStyle={styles.editButton}
+        />
+
+        <Button
           title="Voltar"
           onPress={() => navigation.goBack()}
           containerStyle={styles.button as ViewStyle}
@@ -80,6 +88,10 @@ const styles = {
   },
   logoutButton: {
     backgroundColor: theme.colors.error,
+    paddingVertical: 12,
+  },
+  editButton: {
+    backgroundColor: theme.colors.success,
     paddingVertical: 12,
   },
 };
