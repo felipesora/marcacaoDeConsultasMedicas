@@ -21,6 +21,7 @@
     "@types/styled-components": "^5.1.34",
     "@types/styled-components-react-native": "^5.2.5",
     "expo": "~52.0.38",
+    "expo-image-picker": "^16.1.4",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
