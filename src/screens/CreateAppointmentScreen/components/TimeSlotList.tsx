@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { ViewStyle, TouchableOpacity } from 'react-native';
-import theme from '../styles/theme';
+import { ContainerTimeSlotList, TimeCard, TimeGrid, TimeText } from '../styles';
 
 interface TimeSlotListProps {
   onSelectTime: (time: string) => void;
@@ -31,7 +31,7 @@ const TimeSlotList: React.FC<TimeSlotListProps> = ({
   const timeSlots = generateTimeSlots();
 
   return (
-    <Container style={style}>
+    <ContainerTimeSlotList style={style}>
       <TimeGrid>
         {timeSlots.map((time) => (
           <TimeCard
@@ -43,36 +43,8 @@ const TimeSlotList: React.FC<TimeSlotListProps> = ({
           </TimeCard>
         ))}
       </TimeGrid>
-    </Container>
+    </ContainerTimeSlotList>
   );
 };
-
-const Container = styled.View`
-  margin-bottom: 15px;
-`;
-
-const TimeGrid = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 6px;
-`;
-
-const TimeCard = styled(TouchableOpacity)<StyledProps>`
-  width: 23%;
-  padding: 8px;
-  border-radius: 6px;
-  background-color: ${(props: StyledProps) => props.isSelected ? theme.colors.primary + '20' : theme.colors.background};
-  border-width: 1px;
-  border-color: ${(props: StyledProps) => props.isSelected ? theme.colors.primary : theme.colors.border};
-  align-items: center;
-  justify-content: center;
-`;
-
-const TimeText = styled.Text<StyledProps>`
-  font-size: 12px;
-  font-weight: 500;
-  color: ${(props: StyledProps) => props.isSelected ? theme.colors.primary : theme.colors.text};
-`;
 
 export default TimeSlotList;

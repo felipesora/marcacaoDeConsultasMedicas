@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { ViewStyle } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
-import theme from '../styles/theme';
+import { ContainerDoctorList, styles } from '../styles';
+
 interface Doctor {
   id: string;
   name: string;
@@ -22,7 +23,7 @@ const DoctorList: React.FC<DoctorListProps> = ({
   style,
 }) => {
   return (
-    <Container style={style}>
+    <ContainerDoctorList style={style}>
       {doctors.map((doctor) => (
         <ListItem
           key={doctor.id}
@@ -47,36 +48,8 @@ const DoctorList: React.FC<DoctorListProps> = ({
           <ListItem.Chevron />
         </ListItem>
       ))}
-    </Container>
+    </ContainerDoctorList>
   );
 };
-const styles = {
-  listItem: {
-    borderRadius: 8,
-    marginVertical: 4,
-    backgroundColor: theme.colors.background,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  selectedItem: {
-    backgroundColor: theme.colors.primary + '20',
-    borderColor: theme.colors.primary,
-  },
-  avatar: {
-    backgroundColor: theme.colors.primary,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: theme.colors.text,
-  },
-  specialty: {
-    fontSize: 14,
-    color: theme.colors.text,
-    opacity: 0.7,
-  },
-};
-const Container = styled.View`
-  margin-bottom: 15px;
-`;
+
 export default DoctorList;
