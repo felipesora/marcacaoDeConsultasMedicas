@@ -8,7 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import theme from '../styles/theme';
 import Header from '../components/Header';
-import ProfileImagePicker from '../components/ProfileImagePicker';
+import ProfileImagePicker from './ProfileScreen/components/ProfileImagePicker';
 import { imageService } from '../services/imageService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

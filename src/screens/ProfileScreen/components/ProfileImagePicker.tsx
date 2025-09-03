@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Alert, ActivityIndicator, TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
-import { imageService, ImageResult } from '../services/imageService';
-import theme from '../styles/theme';
+import { imageService, ImageResult } from '../../../services/imageService';
+import theme from '../../../styles/theme';
+import { ChangePhotoText, ContainerImagePicker, EditButton, ImageContainer, LoadingOverlay, ProfileImage } from '../styles';
 
 interface ProfileImagePickerProps {
   currentImageUri?: string;
@@ -120,7 +120,7 @@ const ProfileImagePicker: React.FC<ProfileImagePickerProps> = ({
   };
 
   return (
-    <Container>
+    <ContainerImagePicker>
       <ImageContainer size={size}>
         <ProfileImage 
           source={getImageSource()}
@@ -147,65 +147,8 @@ const ProfileImagePicker: React.FC<ProfileImagePickerProps> = ({
       {editable && (
         <ChangePhotoText>Toque no ícone para alterar</ChangePhotoText>
       )}
-    </Container>
+    </ContainerImagePicker>
   );
 };
-
-const Container = styled.View`
-  align-items: center;
-  margin-bottom: 16px;
-`;
-
-const ImageContainer = styled.View<{ size: number }>`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  position: relative;
-`;
-
-const ProfileImage = styled.Image<{ size: number }>`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  border-radius: ${props => props.size / 2}px;
-  border-width: 3px;
-  border-color: ${theme.colors.primary};
-`;
-
-const LoadingOverlay = styled.View<{ size: number }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  border-radius: ${props => props.size / 2}px;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-`;
-
-const EditButton = styled.TouchableOpacity`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 18px;
-  background-color: ${theme.colors.primary};
-  justify-content: center;
-  align-items: center;
-  border-width: 2px;
-  border-color: ${theme.colors.white};
-  shadow-color: #000;
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.25;
-  shadow-radius: 3.84px;
-  elevation: 5;
-`;
-
-const ChangePhotoText = styled.Text`
-  font-size: 12px;
-  color: ${theme.colors.textSecondary};
-  margin-top: 8px;
-  text-align: center;
-`;
 
 export default ProfileImagePicker;
